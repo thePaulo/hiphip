@@ -25,8 +25,8 @@
 
     <mat-paginator
       #paginator
-      [length]="arr.length"
-      [pageIndex]="1"
+      [length]="arr.length+10"
+      [pageIndex]="currentPage"
       [pageSize]="10"
       
       (page)=" handlePage($event)"

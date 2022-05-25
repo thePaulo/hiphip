@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { catchError, Observable, of } from 'rxjs';
@@ -24,6 +24,7 @@ export class MyTableComponent implements AfterViewInit {
   arr : Observable <Pessoa[]>;
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+  currentPage : number = 0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name'];
@@ -31,7 +32,7 @@ export class MyTableComponent implements AfterViewInit {
   constructor(private tableService: TablezService, private snackBar:MatSnackBar) {
     this.dataSource = new MyTableDataSource();
     //this.tableService = new TablezService();
-    this.arr = this.tableService.list()
+    this.arr = this.tableService.list(0)
       .pipe(        
         catchError( error => {
           console.log(error);
@@ -62,9 +63,18 @@ export class MyTableComponent implements AfterViewInit {
       panelClass: ['red-snackbar']
     })
   }
-  handlePage(e: any) {
-    //this.currentPage = e.pageIndex;
-    //this.pageSize = e.pageSize;
-    //this.iterator();
+  handlePage(e:PageEvent) {
+    
+    this.currentPage= e.pageIndex;
+    this.arr = this.tableService.list(e.pageIndex)
+    .pipe(        
+      catchError( error => {
+        console.log(error);
+        this.onError(error.message, "X");//, 1000);
+        return of([])
+      })
+    );
+    console.log(e);
+    return e;
   }
 }
