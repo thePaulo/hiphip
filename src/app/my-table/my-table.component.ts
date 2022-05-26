@@ -2,8 +2,9 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, empty, Observable, of } from 'rxjs';
 import { Pessoa } from './model/Pessoa.model';
+import {Responsez} from './model/Responsez.model';
 import { MyTableDataSource, MyTableItem } from './my-table-datasource';
 import { TablezService } from './services/tablez.service';
 import { MatSnackBar,  MatSnackBarHorizontalPosition,  MatSnackBarVerticalPosition, } from '@angular/material/snack-bar';
@@ -21,25 +22,28 @@ export class MyTableComponent implements AfterViewInit {
   dataSource: MyTableDataSource;
 
   //tableService: TablezService;
-  arr : Observable <Pessoa[]>;
+  //arr : Observable <Pessoa[]>;
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   currentPage : number = 0;
+  arr : Observable<Pessoa[]> = empty();
+  totalElements : number =0;
+  pageSize : number = 0;
+  //content : Observable<any>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name'];
 
   constructor(private tableService: TablezService, private snackBar:MatSnackBar) {
     this.dataSource = new MyTableDataSource();
-    //this.tableService = new TablezService();
-    this.arr = this.tableService.list(0)
-      .pipe(        
-        catchError( error => {
-          console.log(error);
-          this.onError(error.message, "X");//, 1000);
-          return of([])
-        })
-      );
+    
+    this.tableService.list(0)
+      .subscribe( (ele : any) => { 
+        this.arr = of(ele.content);
+        this.totalElements = ele.totalElements;
+        this.pageSize = ele.size;
+      } );
+
   }
 
   ngAfterViewInit(): void {
@@ -66,6 +70,7 @@ export class MyTableComponent implements AfterViewInit {
   handlePage(e:PageEvent) {
     
     this.currentPage= e.pageIndex;
+    /*
     this.arr = this.tableService.list(e.pageIndex)
     .pipe(        
       catchError( error => {
@@ -76,5 +81,11 @@ export class MyTableComponent implements AfterViewInit {
     );
     console.log(e);
     return e;
+    */
+
+    this.tableService.list(e.pageIndex)
+      .subscribe( (ele : any) => { 
+        this.arr = of(ele.content);
+      } );
   }
 }

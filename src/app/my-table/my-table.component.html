@@ -25,9 +25,9 @@
 
     <mat-paginator
       #paginator
-      [length]="arr.length+10"
+      [length]="totalElements"
       [pageIndex]="currentPage"
-      [pageSize]="10"
+      [pageSize]="pageSize"
       
       (page)=" handlePage($event)"
       aria-label="Select page"

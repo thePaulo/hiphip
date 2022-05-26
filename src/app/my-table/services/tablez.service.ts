@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Pessoa} from '../model/Pessoa.model';
+import {Responsez} from '../model/Responsez.model';
 import { HttpClient } from '@angular/common/http';
 import { delay, first, map, tap } from 'rxjs';
 
@@ -9,7 +10,7 @@ import { delay, first, map, tap } from 'rxjs';
 export class TablezService {
 
   private readonly API = 'api/pessoa';//'localhost:8080/pessoa';
-
+  //private readonly API ='localhost:8080/api/pessoa';
   constructor(private httpClient:HttpClient) {
 
   }
@@ -19,7 +20,6 @@ export class TablezService {
       paginate = "?page="+page;
     }
     
-    console.log("AQUI ABAIXO");
     //console.log(this.httpClient.get<Pessoa[]>(this.API+paginate).pipe(map(res => {
     //  return JSON.parse(res);
     //})));
@@ -34,6 +34,7 @@ export class TablezService {
       })
     ));
     */
+    /*
     var kk : any = this.httpClient.get<any>(this.API+paginate, { params: {
       lat: "merda",
       long: "algo"
@@ -43,14 +44,21 @@ export class TablezService {
       })
     );
     //console.log(kk);
-
-    
-    return this.httpClient.get<Pessoa[]>(this.API+paginate)
+      */
+    var kk : String;
+    return this.httpClient.get<String>(this.API+paginate)
     .pipe(
       first(),
+      
+      /*
+      map(res => {
+        //kk = res.content;
+        console.log( res);
+      })
+      */
       //delay(15000),
-      tap(pessoas => console.log(pessoas))
+      //tap(pessoas => console.log(pessoas))
     );
-    
+    //console.log(kk);
   }
 }
