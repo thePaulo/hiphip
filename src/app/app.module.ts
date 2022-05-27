@@ -11,6 +11,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+import {MatIconModule} from '@angular/material/icon'; 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button'; 
 
 @NgModule({
   declarations: [
@@ -26,7 +29,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatSortModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

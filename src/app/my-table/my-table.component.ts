@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { catchError, EMPTY, empty, Observable, of } from 'rxjs';
+import { catchError, EMPTY, empty, first, Observable, of, tap } from 'rxjs';
 import { Pessoa } from './model/Pessoa.model';
 import {Responsez} from './model/Responsez.model';
 import { MyTableDataSource, MyTableItem } from './my-table-datasource';
@@ -33,24 +33,54 @@ export class MyTableComponent implements AfterViewInit {
   //content : Observable<any>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'nome'];
+  displayedColumns = ['id', 'nome','acao'];
 
   constructor(private tableService: TablezService, private snackBar:MatSnackBar) {
     this.dataSource = new MyTableDataSource();
     
+    /*
     this.tableService.list(this.currentPage,this.sortInfo)
       .subscribe( (ele : any) => { 
         this.arr = of(ele.content);
         this.totalElements = ele.totalElements;
         this.pageSize = ele.size;
       } );
-
+    */  
+    this.tableService.list(this.currentPage,this.sortInfo)
+      .subscribe( 
+        { 
+          next:
+          (ele : any) => { 
+            this.arr = of(ele.content);
+            this.totalElements = ele.totalElements;
+            this.pageSize = ele.size;
+          },
+          error: (e)=> {
+            console.log(e),
+            this.onError(e.message, "X")
+            }, 
+      });
+      
   }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     //this.table.dataSource = this.dataSource;
+  }
+  onDelete(id:number){
+    this.tableService.delete(id)
+    .subscribe({
+      next: (v) => console.log(v),
+      error: (e) => console.log(e),
+      complete: () =>
+         
+        this.tableService.list(this.currentPage,this.sortInfo)
+        .subscribe( (ele : any) => { 
+          this.arr = of(ele.content);
+          this.totalElements = this.totalElements-1;
+        } )
+    }); 
   }
 
   /*

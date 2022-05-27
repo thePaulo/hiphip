@@ -33,4 +33,8 @@ export class TablezService {
       //tap(pessoas => console.log(pessoas))
     );
   }
+
+  delete(id:number){
+    return this.httpClient.delete(this.API+"/"+id.toString());
+  }
 }
