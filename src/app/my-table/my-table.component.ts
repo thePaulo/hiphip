@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { catchError, empty, Observable, of } from 'rxjs';
+import { catchError, EMPTY, empty, Observable, of } from 'rxjs';
 import { Pessoa } from './model/Pessoa.model';
 import {Responsez} from './model/Responsez.model';
 import { MyTableDataSource, MyTableItem } from './my-table-datasource';
@@ -26,18 +26,19 @@ export class MyTableComponent implements AfterViewInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   currentPage : number = 0;
-  arr : Observable<Pessoa[]> = empty();
+  arr : Observable<Pessoa[]> = EMPTY;//empty();
   totalElements : number =0;
   pageSize : number = 0;
+  sortInfo : Sort ={active:"id",direction:"asc"};
   //content : Observable<any>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['id', 'nome'];
 
   constructor(private tableService: TablezService, private snackBar:MatSnackBar) {
     this.dataSource = new MyTableDataSource();
     
-    this.tableService.list(0)
+    this.tableService.list(this.currentPage,this.sortInfo)
       .subscribe( (ele : any) => { 
         this.arr = of(ele.content);
         this.totalElements = ele.totalElements;
@@ -67,6 +68,15 @@ export class MyTableComponent implements AfterViewInit {
       panelClass: ['red-snackbar']
     })
   }
+
+  handleSort(e : Sort){
+
+    this.tableService.list(this.currentPage,e)
+      .subscribe( (ele : any) => { 
+        this.arr = of(ele.content);
+      } );
+  }
+
   handlePage(e:PageEvent) {
     
     this.currentPage= e.pageIndex;
@@ -83,7 +93,7 @@ export class MyTableComponent implements AfterViewInit {
     return e;
     */
 
-    this.tableService.list(e.pageIndex)
+    this.tableService.list(e.pageIndex,this.sortInfo)
       .subscribe( (ele : any) => { 
         this.arr = of(ele.content);
       } );
