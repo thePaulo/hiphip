@@ -13,12 +13,20 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import {MatIconModule} from '@angular/material/icon'; 
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button'; 
+import {MatButtonModule} from '@angular/material/button';
+import { MyFormComponent } from './my-form/my-form.component'; 
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker'; 
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MyTableComponent
+    MyTableComponent,
+    MyFormComponent
   ],
   imports: [
     BrowserModule,
@@ -32,10 +40,21 @@ import {MatButtonModule} from '@angular/material/button';
     MatProgressSpinnerModule,
     MatIconModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterModule,
+
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+    
     
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,7 +8,7 @@ import {Responsez} from './model/Responsez.model';
 import { MyTableDataSource, MyTableItem } from './my-table-datasource';
 import { TablezService } from './services/tablez.service';
 import { MatSnackBar,  MatSnackBarHorizontalPosition,  MatSnackBarVerticalPosition, } from '@angular/material/snack-bar';
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-table',
@@ -33,9 +33,12 @@ export class MyTableComponent implements AfterViewInit {
   //content : Observable<any>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'nome','acao'];
+  displayedColumns = ['id', 'nome','cpf','telefone','sexo','estadoCivil','nomeMae','acao'];
 
-  constructor(private tableService: TablezService, private snackBar:MatSnackBar) {
+  constructor(private tableService: TablezService,
+     private snackBar:MatSnackBar,
+     private router:Router,
+     private activatedRoute:ActivatedRoute) {
     this.dataSource = new MyTableDataSource();
     
     /*
@@ -83,13 +86,14 @@ export class MyTableComponent implements AfterViewInit {
     }); 
   }
 
-  /*
-  onError(msg:string, action:string, duration:number){
-    this.snackBar.open(msg, action, {
-      duration:duration
-    })
+  onAdd(){
+    this.router.navigate(['new'], {relativeTo: this.activatedRoute})
   }
-  */
+
+  onEdit(id:number){
+    this.router.navigate([id.toString()+'/edit'], {relativeTo: this.activatedRoute})
+  }
+
   onError(msg:string, action:string){
 
     this.snackBar.open(msg, action, {
