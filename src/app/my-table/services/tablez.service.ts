@@ -10,8 +10,8 @@ import { delay, first, map, Observable, tap } from 'rxjs';
 })
 export class TablezService {
 
-  private readonly API = 'api/pessoa';//'localhost:8080/pessoa';
-  //private readonly API ='localhost:8080/api/pessoa';
+  //private readonly API = 'api/pessoa';
+  private readonly API ='http://localhost:8080/api/pessoa';
   constructor(@Inject(HttpClient) private httpClient:HttpClient) {
 
   }

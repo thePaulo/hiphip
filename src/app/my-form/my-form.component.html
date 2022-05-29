@@ -1,49 +1,54 @@
-<form [formGroup]="form">
-    <mat-form-field>
-      <input matInput placeholder="Nome" formControlName="nome" />
-    </mat-form-field>
-    <br />
-    <mat-form-field>
-      <input matInput placeholder="telefone" formControlName="telefone" />
-    </mat-form-field>
-    <br />
-    <mat-form-field>
-        <input matInput placeholder="Estado Civil" formControlName="estadoCivil" />
+<mat-card class="mid">
+  <mat-toolbar color="primary">Cadastro/Edição</mat-toolbar>
+  <mat-card-content>
+    <form [formGroup]="form">
+      <mat-form-field class="sizeable">
+        <input matInput placeholder="Nome" formControlName="nome" />
       </mat-form-field>
-    <br />    
-    <mat-form-field>
-        <input matInput placeholder="Sexo" formControlName="sexo" />
+      <br />
+      <mat-form-field class="sizeable">
+        <input matInput placeholder="telefone" formControlName="telefone" />
       </mat-form-field>
-    <br />    
-    <mat-form-field>
-        <input matInput placeholder="CPF" formControlName="cpf" />
-      </mat-form-field>
-    <br />    
-    
-    
-    <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Data de Nascimento"
-           formControlName="dataNasc">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <br />
-    
-    <mat-form-field>
-        <input matInput placeholder="Nome da Mãe" formControlName="nomeMae" />
-      </mat-form-field>
-    <br /> 
+      <br />
+      <mat-form-field class="sizeable">
+          <input matInput placeholder="Estado Civil" formControlName="estadoCivil" />
+        </mat-form-field>
+      <br />    
+      <mat-form-field class="sizeable">
+          <input matInput placeholder="Sexo" formControlName="sexo" />
+        </mat-form-field>
+      <br />    
+      <mat-form-field class="sizeable">
+          <input matInput placeholder="CPF" formControlName="cpf" />
+        </mat-form-field>
+      <br />    
       
-    <div *ngIf="isEdit ; else register">
-      <button mat-raised-button color="primary" (click)="onUpdate()">
-        Editar
-      </button>
-    </div>
-    <ng-template #register>
-      <button mat-raised-button color="primary" (click)="onSubmit()">
-        Cadastrar
-      </button>
-    </ng-template>
+      
+      <mat-form-field class="sizeable">
+        <input matInput [matDatepicker]="picker" placeholder="Data de Nascimento"
+            formControlName="dataNasc">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <br />
+      
+      <mat-form-field class="sizeable">
+          <input matInput placeholder="Nome da Mãe" formControlName="nomeMae" />
+        </mat-form-field>
+      <br /> 
+        
+      <div *ngIf="isEdit ; else register">
+        <button mat-raised-button color="primary"  class="sizeable" (click)="onUpdate()">
+          Editar
+        </button>
+      </div>
+      <ng-template #register>
+        <button mat-raised-button color="primary" class="sizeable" (click)="onSubmit()">
+          Cadastrar
+        </button>
+      </ng-template>
 
-    <button mat-raised-button (click)="onCancel()">Cancelar</button>
-  </form>
+      <button mat-raised-button class="sizeable" (click)="onCancel()">Cancelar</button>
+    </form>
+  </mat-card-content>
+</mat-card>
