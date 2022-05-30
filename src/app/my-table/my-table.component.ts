@@ -105,6 +105,7 @@ export class MyTableComponent implements AfterViewInit {
 
   handleSort(e : Sort){
 
+    this.sortInfo = e;
     this.tableService.list(this.currentPage,e)
       .subscribe( (ele : any) => { 
         this.arr = of(ele.content);

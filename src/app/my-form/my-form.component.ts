@@ -5,6 +5,8 @@ import { MatSnackBar,  MatSnackBarHorizontalPosition,  MatSnackBarVerticalPositi
 import { formatDate, Location } from '@angular/common';
 import { Pessoa } from '../my-table/model/Pessoa.model';
 import { EMPTY, Observable, of } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { AddressDialogComponent } from '../address-dialog/address-dialog.component';
 
 @Component({
   selector: 'app-my-form',
@@ -24,7 +26,8 @@ export class MyFormComponent implements OnInit {
   constructor(private formBuilder:FormBuilder,
     private service:TablezService,
     private snackBar:MatSnackBar,
-    private location:Location) {
+    private location:Location,
+    private dialog: MatDialog) {
       this.form = this.formBuilder.group({
         nome: [null],
         telefone:[null],
@@ -78,6 +81,17 @@ export class MyFormComponent implements OnInit {
         complete: () => console.info('complete')
     })
   }
+
+  openDialog(){
+    const dialogRef = this.dialog.open(AddressDialogComponent,{
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('the dialog was closed');
+    });
+  }
+
   onSucess(){
     this.snackBar.open("Salvo!", "", {duration:4000 })
     this.location.back();

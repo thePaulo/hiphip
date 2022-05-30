@@ -36,9 +36,13 @@
           <input matInput placeholder="Nome da Mãe" formControlName="nomeMae" />
         </mat-form-field>
       <br /> 
+      
+      <button mat-fab style="float: right" color="primary" (click)="openDialog()">
+        <mat-icon>home</mat-icon>
+      </button>
         
       <div *ngIf="isEdit ; else register">
-        <button mat-raised-button color="primary"  class="sizeable" (click)="onUpdate()">
+        <button mat-raised-button color="accent"  class="sizeable" (click)="onUpdate()">
           Editar
         </button>
       </div>

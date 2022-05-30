@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 
 import { TablezModuleRoutingModule } from './tablez-module-routing.module';
 
+import {MatDialogModule} from '@angular/material/dialog'; 
 
 @NgModule({
   declarations: [],
@@ -14,7 +15,8 @@ import { TablezModuleRoutingModule } from './tablez-module-routing.module';
     TablezModuleRoutingModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ]
 })
 export class TablezModuleModule { }

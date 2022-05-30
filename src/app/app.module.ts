@@ -22,12 +22,17 @@ import { MatInputModule } from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker'; 
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog'; 
+import { AddressDialogComponent } from './address-dialog/address-dialog.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MyTableComponent,
-    MyFormComponent
+    MyFormComponent,
+    AddressDialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,9 @@ import {MatCardModule} from '@angular/material/card';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
+    
     
     
   ],
